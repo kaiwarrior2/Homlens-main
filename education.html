@@ -231,6 +231,27 @@ C:\Users\makar\OneDrive\Рабочий стол\Homlens-main\education.html<!DOC
             color: white;
             font-weight: bold;
         }
+        
+        .grade-notification {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin-top: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .grade-badge {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            border-radius: 10px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin: 1rem 0;
+        }
+        
+        .grade-badge.low { background: #dc3545; color: white; }
+        .grade-badge.medium { background: #ffc107; color: #242423; }
+        .grade-badge.high { background: #28a745; color: white; }
     </style>
 </head>
 <body>
@@ -293,13 +314,37 @@ C:\Users\makar\OneDrive\Рабочий стол\Homlens-main\education.html<!DOC
 
         <div class="progress-container" id="tasksSection" style="display: none; margin-top: 2rem;">
             <h3 class="progress-title">🎉 Задания разблокированы!</h3>
-            <p style="font-size: 1.2rem; margin-bottom: 2rem;">Поздравляем! Вы прошли все уроки. Теперь доступны творческие задания.</p>
-            <div id="tasksContainer">
-                <p style="color: #666;">Задания скоро появятся здесь...</p>
+            <p style="font-size: 1.2rem; margin-bottom: 2rem;">Поздравляем! Вы прошли все уроки. Напишите свой текст!</p>
+            
+            <div style="text-align: left; max-width: 600px; margin: 0 auto;">
+                <label style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Ваше имя:</label>
+                <input type="text" id="authorName" placeholder="Введите ваше имя" style="width: 100%; padding: 0.8rem; border: 2px solid #BB794C; border-radius: 10px; margin-bottom: 1rem; font-size: 1rem;">
+                
+                <label style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Тип речи:</label>
+                <select id="speechType" style="width: 100%; padding: 0.8rem; border: 2px solid #BB794C; border-radius: 10px; margin-bottom: 1rem; font-size: 1rem;">
+                    <option value="">Выберите тип речи</option>
+                    <option value="Рассуждение">Рассуждение</option>
+                    <option value="Описание">Описание</option>
+                    <option value="Повествование">Повествование</option>
+                </select>
+                
+                <label style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Ваш текст:</label>
+                <textarea id="userText" placeholder="Напишите свой текст здесь..." style="width: 100%; min-height: 200px; padding: 1rem; border: 2px solid #BB794C; border-radius: 10px; margin-bottom: 1rem; font-size: 1rem; resize: vertical;"></textarea>
+                
+                <button onclick="submitText()" style="width: 100%; padding: 1rem; background: #BB794C; color: white; border: none; border-radius: 10px; font-size: 1.1rem; cursor: pointer; font-weight: bold;">Отправить текст</button>
+                
+                <div id="submitMessage" style="margin-top: 1rem; padding: 1rem; border-radius: 10px; display: none;"></div>
+                
+                <div id="gradeNotification" class="grade-notification" style="display: none;">
+                    <h3 style="color: #BB794C; margin-bottom: 1rem;">🎓 Ваша оценка</h3>
+                    <div id="gradeDisplay"></div>
+                    <p id="gradeComment" style="margin-top: 1rem; color: #666;"></p>
+                </div>
             </div>
         </div>
     </div>
     
+    <script src="data.js"></script>
     <script>
         function toggleAccessibilityMenu() {
             document.getElementById('accessibilityMenu').classList.toggle('active');
@@ -327,6 +372,37 @@ C:\Users\makar\OneDrive\Рабочий стол\Homlens-main\education.html<!DOC
             localStorage.setItem('colorBlind', document.body.classList.contains('color-blind'));
         }
         
+        function submitText() {
+            const author = document.getElementById('authorName').value.trim();
+            const speechType = document.getElementById('speechType').value;
+            const text = document.getElementById('userText').value.trim();
+            const message = document.getElementById('submitMessage');
+            
+            if (!author || !speechType || !text) {
+                message.style.display = 'block';
+                message.style.background = '#dc3545';
+                message.style.color = 'white';
+                message.textContent = '❌ Пожалуйста, заполните все поля!';
+                return;
+            }
+            
+            localStorage.setItem('currentUserName', author);
+            addSubmission(text, author, speechType);
+            
+            message.style.display = 'block';
+            message.style.background = '#28a745';
+            message.style.color = 'white';
+            message.textContent = '✅ Текст успешно отправлен! Ожидайте оценку...';
+            
+            document.getElementById('authorName').value = '';
+            document.getElementById('speechType').value = '';
+            document.getElementById('userText').value = '';
+            
+            setTimeout(() => {
+                message.style.display = 'none';
+            }, 3000);
+        }
+        
         window.onload = function() {
             if (localStorage.getItem('highContrast') === 'true') {
                 document.body.classList.add('high-contrast');
@@ -338,7 +414,6 @@ C:\Users\makar\OneDrive\Рабочий стол\Homlens-main\education.html<!DOC
                 document.body.classList.add('color-blind');
             }
             
-            // Обновление прогресса
             updateProgress();
         }
         
@@ -353,10 +428,51 @@ C:\Users\makar\OneDrive\Рабочий стол\Homlens-main\education.html<!DOC
             document.getElementById('learningProgress').textContent = Math.round(percent) + '%';
             document.getElementById('completedLessons').textContent = completed;
             
-            // Показать задания, если все уроки пройдены
             if (completed === 3) {
                 document.getElementById('tasksSection').style.display = 'block';
+                checkForGrade();
             }
+        }
+        
+        function checkForGrade() {
+            const currentUser = localStorage.getItem('currentUserName');
+            if (!currentUser) return;
+            
+            const submissions = getSubmissions();
+            const userSubmission = submissions.find(s => s.author === currentUser && s.grade);
+            
+            if (userSubmission) {
+                displayGrade(userSubmission.grade);
+            }
+            
+            setInterval(() => {
+                const submissions = getSubmissions();
+                const userSubmission = submissions.find(s => s.author === currentUser && s.grade);
+                if (userSubmission) {
+                    displayGrade(userSubmission.grade);
+                }
+            }, 3000);
+        }
+        
+        function displayGrade(grade) {
+            const notification = document.getElementById('gradeNotification');
+            const display = document.getElementById('gradeDisplay');
+            const comment = document.getElementById('gradeComment');
+            
+            let gradeClass = 'high';
+            let gradeText = 'Отлично!';
+            
+            if (grade < 50) {
+                gradeClass = 'low';
+                gradeText = 'Нужно поработать ещё';
+            } else if (grade < 75) {
+                gradeClass = 'medium';
+                gradeText = 'Хорошо!';
+            }
+            
+            display.innerHTML = `<div class="grade-badge ${gradeClass}">${grade}/100</div>`;
+            comment.textContent = gradeText;
+            notification.style.display = 'block';
         }
         
         function toggleMobileMenu() {

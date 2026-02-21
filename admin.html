@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Админ-панель - Отправленные тексты</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .admin-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 2rem;
+        }
+        
+        .admin-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .admin-header h1 {
+            font-size: 2.5rem;
+            font-family: 'MontserratAlternates', Arial, sans-serif;
+            color: #242423;
+        }
+        
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #BB794C;
+        }
+        
+        .stat-label {
+            color: #666;
+            margin-top: 0.5rem;
+        }
+        
+        .submissions-list {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .submission-item {
+            border-bottom: 1px solid #eee;
+            padding: 1.5rem 0;
+        }
+        
+        .submission-item:last-child {
+            border-bottom: none;
+        }
+        
+        .submission-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .submission-author {
+            font-weight: bold;
+            color: #BB794C;
+        }
+        
+        .submission-date {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .submission-type {
+            display: inline-block;
+            background: #DEB308;
+            color: #242423;
+            padding: 0.3rem 0.8rem;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            margin-left: 1rem;
+        }
+        
+        .submission-text {
+            background: #f8f9fa;
+            padding: 1rem;
+            border-radius: 10px;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+        
+        .delete-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        
+        .delete-btn:hover {
+            background: #c82333;
+        }
+        
+        .grade-section {
+            margin-top: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .grade-input {
+            width: 80px;
+            padding: 0.5rem;
+            border: 2px solid #BB794C;
+            border-radius: 8px;
+            font-size: 1rem;
+            text-align: center;
+        }
+        
+        .grade-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        
+        .grade-btn:hover {
+            background: #218838;
+        }
+        
+        .grade-display {
+            display: inline-block;
+            background: #28a745;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        
+        .grade-display.low {
+            background: #dc3545;
+        }
+        
+        .grade-display.medium {
+            background: #ffc107;
+            color: #242423;
+        }
+        
+        .grade-display.high {
+            background: #28a745;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <nav class="top-nav">
+        <button class="nav-btn" onclick="window.location.href='history.html'">История</button>
+        <button class="nav-btn" onclick="window.location.href='gallery.html'">Галерея</button>
+        <button class="nav-btn" onclick="window.location.href='index.html'">Главная</button>
+        <button class="nav-btn" onclick="window.location.href='education.html'">Обучение</button>
+        <button class="nav-btn" style="opacity: 0.5; cursor: not-allowed;">Фанфики</button>
+    </nav>
+
+    <div class="admin-container">
+        <div class="admin-header">
+            <h1>📝 Админ-панель</h1>
+            <p>Отправленные тексты учеников</p>
+        </div>
+
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-number" id="totalCount">0</div>
+                <div class="stat-label">Всего текстов</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="todayCount">0</div>
+                <div class="stat-label">Сегодня</div>
+            </div>
+        </div>
+
+        <div class="submissions-list" id="submissionsList">
+            <div class="empty-state">
+                <p>Пока нет отправленных текстов</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="data.js"></script>
+    <script>
+        function loadSubmissions() {
+            const submissions = getSubmissions();
+            const container = document.getElementById('submissionsList');
+            
+            document.getElementById('totalCount').textContent = submissions.length;
+            
+            const today = new Date().toLocaleDateString('ru-RU');
+            const todayCount = submissions.filter(s => s.date.startsWith(today)).length;
+            document.getElementById('todayCount').textContent = todayCount;
+            
+            if (submissions.length === 0) {
+                container.innerHTML = '<div class="empty-state"><p>Пока нет отправленных текстов</p></div>';
+                return;
+            }
+            
+            container.innerHTML = submissions.reverse().map(s => `
+                <div class="submission-item">
+                    <div class="submission-header">
+                        <div>
+                            <span class="submission-author">${s.author}</span>
+                            <span class="submission-type">${s.speechType}</span>
+                        </div>
+                        <span class="submission-date">${s.date}</span>
+                    </div>
+                    <div class="submission-text">${s.text}</div>
+                    <div class="grade-section">
+                        ${s.grade ? `<span class="grade-display ${getGradeClass(s.grade)}">Оценка: ${s.grade}/100</span>` : `
+                            <input type="number" class="grade-input" id="grade-${s.id}" min="1" max="100" placeholder="1-100">
+                            <button class="grade-btn" onclick="saveGrade(${s.id})">Оценить</button>
+                        `}
+                    </div>
+                    <button class="delete-btn" onclick="deleteText(${s.id})">Удалить</button>
+                </div>
+            `).join('');
+        }
+        
+        function deleteText(id) {
+            if (confirm('Удалить этот текст?')) {
+                deleteSubmission(id);
+                loadSubmissions();
+            }
+        }
+        
+        function saveGrade(id) {
+            const input = document.getElementById(`grade-${id}`);
+            const grade = parseInt(input.value);
+            
+            if (!grade || grade < 1 || grade > 100) {
+                alert('Введите оценку от 1 до 100');
+                return;
+            }
+            
+            const submissions = getSubmissions();
+            const submission = submissions.find(s => s.id === id);
+            if (submission) {
+                submission.grade = grade;
+                localStorage.setItem('submissions', JSON.stringify(submissions));
+                loadSubmissions();
+            }
+        }
+        
+        function getGradeClass(grade) {
+            if (grade < 50) return 'low';
+            if (grade < 75) return 'medium';
+            return 'high';
+        }
+        
+        function toggleMobileMenu() {
+            document.querySelector('.mobile-menu-btn').classList.toggle('active');
+            document.querySelector('.top-nav').classList.toggle('active');
+        }
+        
+        loadSubmissions();
+    </script>
+</body>
+</html>
