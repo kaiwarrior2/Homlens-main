@@ -173,9 +173,75 @@
             padding: 3rem;
             color: #666;
         }
+        
+        .login-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #BB794C, #DEB308);
+        }
+        
+        .login-box {
+            background: white;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+            max-width: 400px;
+            width: 100%;
+        }
+        
+        .login-box h2 {
+            text-align: center;
+            color: #BB794C;
+            margin-bottom: 2rem;
+        }
+        
+        .login-input {
+            width: 100%;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border: 2px solid #BB794C;
+            border-radius: 10px;
+            font-size: 1rem;
+        }
+        
+        .login-btn {
+            width: 100%;
+            padding: 1rem;
+            background: #BB794C;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        .login-btn:hover {
+            background: #a66a3d;
+        }
+        
+        .login-error {
+            color: #dc3545;
+            text-align: center;
+            margin-top: 1rem;
+            display: none;
+        }
     </style>
 </head>
 <body>
+    <div id="loginScreen" class="login-container">
+        <div class="login-box">
+            <h2>🔒 Вход в админ-панель</h2>
+            <input type="text" id="username" class="login-input" placeholder="Логин">
+            <input type="password" id="password" class="login-input" placeholder="Пароль">
+            <button class="login-btn" onclick="login()">Войти</button>
+            <div id="loginError" class="login-error">Неверный логин или пароль</div>
+        </div>
+    </div>
+
+    <div id="adminPanel" style="display: none;">
     <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
         <span></span>
         <span></span>
@@ -216,6 +282,28 @@
 
     <script src="data.js"></script>
     <script>
+        function login() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            if (username === 'makarbelkin' && password === 'A977168kl!39') {
+                localStorage.setItem('adminLoggedIn', 'true');
+                document.getElementById('loginScreen').style.display = 'none';
+                document.getElementById('adminPanel').style.display = 'block';
+                loadSubmissions();
+            } else {
+                document.getElementById('loginError').style.display = 'block';
+            }
+        }
+        
+        window.onload = function() {
+            if (localStorage.getItem('adminLoggedIn') === 'true') {
+                document.getElementById('loginScreen').style.display = 'none';
+                document.getElementById('adminPanel').style.display = 'block';
+                loadSubmissions();
+            }
+        }
+        
         function loadSubmissions() {
             const submissions = getSubmissions();
             const container = document.getElementById('submissionsList');
