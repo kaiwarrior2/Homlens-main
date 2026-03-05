@@ -252,6 +252,11 @@
         .grade-badge.low { background: #dc3545; color: white; }
         .grade-badge.medium { background: #ffc107; color: #242423; }
         .grade-badge.high { background: #28a745; color: white; }
+        
+        .answer-correct { background: #d4edda !important; border-color: #28a745 !important; }
+        .answer-wrong { background: #f8d7da !important; border-color: #dc3545 !important; }
+        .answer-correct input[type="radio"] { accent-color: #28a745; }
+        .answer-wrong input[type="radio"] { accent-color: #dc3545; }
     </style>
 </head>
 <body>
@@ -623,7 +628,23 @@
             
             let score = 0;
             for (let key in answers) {
-                if (answers[key] === correct[key]) score++;
+                const questionDiv = document.querySelector(`input[name="${key}"]`).closest('div[style*="background: #f8f9fa"]');
+                const correctRadio = document.querySelector(`input[name="${key}"][value="${correct[key]}"]`);
+                const selectedRadio = document.querySelector(`input[name="${key}"]:checked`);
+                
+                if (answers[key] === correct[key]) {
+                    score++;
+                    if (selectedRadio) {
+                        selectedRadio.parentElement.classList.add('answer-correct');
+                    }
+                } else {
+                    if (selectedRadio) {
+                        selectedRadio.parentElement.classList.add('answer-wrong');
+                    }
+                    if (correctRadio) {
+                        correctRadio.parentElement.classList.add('answer-correct');
+                    }
+                }
             }
             
             const result = document.getElementById('homlinsResult');
