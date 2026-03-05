@@ -253,8 +253,59 @@
         .grade-badge.medium { background: #ffc107; color: #242423; }
         .grade-badge.high { background: #28a745; color: white; }
         
-        .answer-correct { background: #d4edda !important; border-color: #28a745 !important; }
-        .answer-wrong { background: #f8d7da !important; border-color: #dc3545 !important; }
+        .quiz-option { 
+            display: block;
+            padding: 1rem 1.2rem; 
+            margin: 0.6rem 0;
+            border-radius: 12px; 
+            border: 2px solid #e0e0e0;
+            background: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            position: relative;
+        }
+        .quiz-option:hover {
+            border-color: #BB794C;
+            background: #fef9f5;
+            transform: translateX(5px);
+            box-shadow: 0 2px 8px rgba(187, 121, 76, 0.15);
+        }
+        .quiz-option input[type="radio"] {
+            margin-right: 0.8rem;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: #BB794C;
+        }
+        .answer-correct { 
+            background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%) !important; 
+            border-color: #28a745 !important;
+            box-shadow: 0 4px 12px rgba(40, 167, 69, 0.2) !important;
+            font-weight: 600;
+        }
+        .answer-correct::before {
+            content: '✓';
+            position: absolute;
+            right: 1rem;
+            color: #28a745;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        .answer-wrong { 
+            background: linear-gradient(135deg, #f8d7da 0%, #f5c6cb 100%) !important; 
+            border-color: #dc3545 !important;
+            box-shadow: 0 4px 12px rgba(220, 53, 69, 0.2) !important;
+            font-weight: 600;
+        }
+        .answer-wrong::before {
+            content: '✗';
+            position: absolute;
+            right: 1rem;
+            color: #dc3545;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
         .answer-correct input[type="radio"] { accent-color: #28a745; }
         .answer-wrong input[type="radio"] { accent-color: #dc3545; }
     </style>
@@ -326,72 +377,72 @@
                 
                 <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 10px; margin-bottom: 1rem;">
                     <p style="font-weight: bold; margin-bottom: 0.8rem;">1. В каком году был установлен первый хомлин - дедушка Карл?</p>
-                    <label style="display: block; margin: 0.5rem 0; cursor: pointer;"><input type="radio" name="h1" value="2016" style="margin-right: 0.5rem;"> 2016</label>
-                    <label style="display: block; margin: 0.5rem 0; cursor: pointer;"><input type="radio" name="h1" value="2018" style="margin-right: 0.5rem;"> 2018</label>
-                    <label style="display: block; margin: 0.5rem 0; cursor: pointer;"><input type="radio" name="h1" value="2020" style="margin-right: 0.5rem;"> 2020</label>
+                    <label class="quiz-option"><input type="radio" name="h1" value="2016"> 2016</label>
+                    <label class="quiz-option"><input type="radio" name="h1" value="2018"> 2018</label>
+                    <label class="quiz-option"><input type="radio" name="h1" value="2020"> 2020</label>
                 </div>
                 
                 <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 10px; margin-bottom: 1rem;">
                     <p style="font-weight: bold; margin-bottom: 0.8rem;">2. На каком мосту установлен дедушка Карл?</p>
-                    <label style="display: block; margin: 0.5rem 0; cursor: pointer;"><input type="radio" name="h2" value="медовый" style="margin-right: 0.5rem;"> Медовый</label>
-                    <label style="display: block; margin: 0.5rem 0; cursor: pointer;"><input type="radio" name="h2" value="деревянный" style="margin-right: 0.5rem;"> Деревянный</label>
-                    <label style="display: block; margin: 0.5rem 0; cursor: pointer;"><input type="radio" name="h2" value="каменный" style="margin-right: 0.5rem;"> Каменный</label>
+                    <label class="quiz-option"><input type="radio" name="h2" value="медовый"> Медовый</label>
+                    <label class="quiz-option"><input type="radio" name="h2" value="деревянный"> Деревянный</label>
+                    <label class="quiz-option"><input type="radio" name="h2" value="каменный"> Каменный</label>
                 </div>
                 
                 <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 10px; margin-bottom: 1rem;">
                     <p style="font-weight: bold; margin-bottom: 0.8rem;">3. Какой напиток любит дедушка Карл?</p>
-                    <label style="display: block; margin: 0.5rem 0; cursor: pointer;"><input type="radio" name="h3" value="кофе" style="margin-right: 0.5rem;"> Кофе</label>
-                    <label style="display: block; margin: 0.5rem 0; cursor: pointer;"><input type="radio" name="h3" value="чай" style="margin-right: 0.5rem;"> Чай</label>
-                    <label style="display: block; margin: 0.5rem 0; cursor: pointer;"><input type="radio" name="h3" value="сок" style="margin-right: 0.5rem;"> Сок</label>
+                    <label class="quiz-option"><input type="radio" name="h3" value="кофе"> Кофе</label>
+                    <label class="quiz-option"><input type="radio" name="h3" value="чай"> Чай</label>
+                    <label class="quiz-option"><input type="radio" name="h3" value="сок"> Сок</label>
                 </div>
                 
                 <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 10px; margin-bottom: 1rem;">
                     <p style="font-weight: bold; margin-bottom: 0.8rem;">4. Где установлен папа Лео?</p>
-                    <label style="display: block; margin: 0.5rem 0; cursor: pointer;"><input type="radio" name="h4" value="парк" style="margin-right: 0.5rem;"> В парке</label>
-                    <label style="display: block; margin: 0.5rem 0; cursor: pointer;"><input type="radio" name="h4" value="музей" style="margin-right: 0.5rem;"> У музея</label>
-                    <label style="display: block; margin: 0.5rem 0; cursor: pointer;"><input type="radio" name="h4" value="площадь" style="margin-right: 0.5rem;"> На площади</label>
+                    <label class="quiz-option"><input type="radio" name="h4" value="парк"> В парке</label>
+                    <label class="quiz-option"><input type="radio" name="h4" value="музей"> У музея</label>
+                    <label class="quiz-option"><input type="radio" name="h4" value="площадь"> На площади</label>
                 </div>
                 
                 <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 10px; margin-bottom: 1rem;">
                     <p style="font-weight: bold; margin-bottom: 0.8rem;">5. В каком году был установлен папа Лео?</p>
-                    <label style="display: block; margin: 0.5rem 0; cursor: pointer;"><input type="radio" name="h5" value="2019" style="margin-right: 0.5rem;"> 2019</label>
-                    <label style="display: block; margin: 0.5rem 0; cursor: pointer;"><input type="radio" name="h5" value="2021" style="margin-right: 0.5rem;"> 2021</label>
-                    <label style="display: block; margin: 0.5rem 0; cursor: pointer;"><input type="radio" name="h5" value="2022" style="margin-right: 0.5rem;"> 2022</label>
+                    <label class="quiz-option"><input type="radio" name="h5" value="2019"> 2019</label>
+                    <label class="quiz-option"><input type="radio" name="h5" value="2021"> 2021</label>
+                    <label class="quiz-option"><input type="radio" name="h5" value="2022"> 2022</label>
                 </div>
                 
                 <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 10px; margin-bottom: 1rem;">
                     <p style="font-weight: bold; margin-bottom: 0.8rem;">6. Что носит папа Лео на голове?</p>
-                    <label style="display: block; margin: 0.5rem 0; cursor: pointer;"><input type="radio" name="h6" value="кепка" style="margin-right: 0.5rem;"> Кепка</label>
-                    <label style="display: block; margin: 0.5rem 0; cursor: pointer;"><input type="radio" name="h6" value="шляпа" style="margin-right: 0.5rem;"> Шляпа</label>
-                    <label style="display: block; margin: 0.5rem 0; cursor: pointer;"><input type="radio" name="h6" value="берет" style="margin-right: 0.5rem;"> Берет</label>
+                    <label class="quiz-option"><input type="radio" name="h6" value="кепка"> Кепка</label>
+                    <label class="quiz-option"><input type="radio" name="h6" value="шляпа"> Шляпа</label>
+                    <label class="quiz-option"><input type="radio" name="h6" value="берет"> Берет</label>
                 </div>
                 
                 <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 10px; margin-bottom: 1rem;">
                     <p style="font-weight: bold; margin-bottom: 0.8rem;">7. Где установлен Витя?</p>
-                    <label style="display: block; margin: 0.5rem 0; cursor: pointer;"><input type="radio" name="h7" value="мост" style="margin-right: 0.5rem;"> На мосту</label>
-                    <label style="display: block; margin: 0.5rem 0; cursor: pointer;"><input type="radio" name="h7" value="набережная" style="margin-right: 0.5rem;"> На набережной</label>
-                    <label style="display: block; margin: 0.5rem 0; cursor: pointer;"><input type="radio" name="h7" value="порт" style="margin-right: 0.5rem;"> В порту</label>
+                    <label class="quiz-option"><input type="radio" name="h7" value="мост"> На мосту</label>
+                    <label class="quiz-option"><input type="radio" name="h7" value="набережная"> На набережной</label>
+                    <label class="quiz-option"><input type="radio" name="h7" value="порт"> В порту</label>
                 </div>
                 
                 <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 10px; margin-bottom: 1rem;">
                     <p style="font-weight: bold; margin-bottom: 0.8rem;">8. По какой реке мечтает плавать Витя?</p>
-                    <label style="display: block; margin: 0.5rem 0; cursor: pointer;"><input type="radio" name="h8" value="неман" style="margin-right: 0.5rem;"> Неман</label>
-                    <label style="display: block; margin: 0.5rem 0; cursor: pointer;"><input type="radio" name="h8" value="преголя" style="margin-right: 0.5rem;"> Преголя</label>
-                    <label style="display: block; margin: 0.5rem 0; cursor: pointer;"><input type="radio" name="h8" value="волга" style="margin-right: 0.5rem;"> Волга</label>
+                    <label class="quiz-option"><input type="radio" name="h8" value="неман"> Неман</label>
+                    <label class="quiz-option"><input type="radio" name="h8" value="преголя"> Преголя</label>
+                    <label class="quiz-option"><input type="radio" name="h8" value="волга"> Волга</label>
                 </div>
                 
                 <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 10px; margin-bottom: 1rem;">
                     <p style="font-weight: bold; margin-bottom: 0.8rem;">9. Что носит Витя на голове?</p>
-                    <label style="display: block; margin: 0.5rem 0; cursor: pointer;"><input type="radio" name="h9" value="фуражка" style="margin-right: 0.5rem;"> Фуражка</label>
-                    <label style="display: block; margin: 0.5rem 0; cursor: pointer;"><input type="radio" name="h9" value="шапка" style="margin-right: 0.5rem;"> Шапка</label>
-                    <label style="display: block; margin: 0.5rem 0; cursor: pointer;"><input type="radio" name="h9" value="бандана" style="margin-right: 0.5rem;"> Бандана</label>
+                    <label class="quiz-option"><input type="radio" name="h9" value="фуражка"> Фуражка</label>
+                    <label class="quiz-option"><input type="radio" name="h9" value="шапка"> Шапка</label>
+                    <label class="quiz-option"><input type="radio" name="h9" value="бандана"> Бандана</label>
                 </div>
                 
                 <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 10px; margin-bottom: 1.5rem;">
                     <p style="font-weight: bold; margin-bottom: 0.8rem;">10. Кто выбирал имена для хомлинов?</p>
-                    <label style="display: block; margin: 0.5rem 0; cursor: pointer;"><input type="radio" name="h10" value="художник" style="margin-right: 0.5rem;"> Художник</label>
-                    <label style="display: block; margin: 0.5rem 0; cursor: pointer;"><input type="radio" name="h10" value="жители" style="margin-right: 0.5rem;"> Жители города</label>
-                    <label style="display: block; margin: 0.5rem 0; cursor: pointer;"><input type="radio" name="h10" value="мэр" style="margin-right: 0.5rem;"> Мэр города</label>
+                    <label class="quiz-option"><input type="radio" name="h10" value="художник"> Художник</label>
+                    <label class="quiz-option"><input type="radio" name="h10" value="жители"> Жители города</label>
+                    <label class="quiz-option"><input type="radio" name="h10" value="мэр"> Мэр города</label>
                 </div>
                 
                 <button onclick="checkHomlinsQuiz()" style="width: 100%; padding: 1rem; background: #BB794C; color: white; border: none; border-radius: 10px; font-size: 1.1rem; cursor: pointer; font-weight: bold; margin-bottom: 1rem;">Проверить ответы</button>
