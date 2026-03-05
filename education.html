@@ -314,9 +314,103 @@ C:\Users\makar\OneDrive\Рабочий стол\Homlens-main\education.html<!DOC
 
         <div class="progress-container" id="tasksSection" style="display: none; margin-top: 2rem;">
             <h3 class="progress-title">🎉 Задания разблокированы!</h3>
-            <p style="font-size: 1.2rem; margin-bottom: 2rem;">Поздравляем! Вы прошли все уроки. Напишите свой текст!</p>
+            <p style="font-size: 1.2rem; margin-bottom: 2rem;">Поздравляем! Вы прошли все уроки. Теперь проверьте свои знания!</p>
             
-            <div style="text-align: left; max-width: 600px; margin: 0 auto;">
+            <div style="text-align: left; max-width: 800px; margin: 0 auto;">
+                <h3 style="color: #BB794C; margin-bottom: 1.5rem; text-align: center;">📚 Вопросы о содержании текстов и истории Хомлинов</h3>
+                
+                <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 10px; margin-bottom: 1rem;">
+                    <p style="font-weight: bold; margin-bottom: 0.8rem;">1. В каком году был установлен первый хомлин - дедушка Карл?</p>
+                    <input type="text" id="h1" placeholder="Ваш ответ" style="width: 100%; padding: 0.6rem; border: 2px solid #BB794C; border-radius: 8px; font-size: 1rem;">
+                </div>
+                
+                <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 10px; margin-bottom: 1rem;">
+                    <p style="font-weight: bold; margin-bottom: 0.8rem;">2. На каком мосту установлен дедушка Карл?</p>
+                    <input type="text" id="h2" placeholder="Ваш ответ" style="width: 100%; padding: 0.6rem; border: 2px solid #BB794C; border-radius: 8px; font-size: 1rem;">
+                </div>
+                
+                <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 10px; margin-bottom: 1rem;">
+                    <p style="font-weight: bold; margin-bottom: 0.8rem;">3. Какой напиток любит дедушка Карл?</p>
+                    <input type="text" id="h3" placeholder="Ваш ответ" style="width: 100%; padding: 0.6rem; border: 2px solid #BB794C; border-radius: 8px; font-size: 1rem;">
+                </div>
+                
+                <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 10px; margin-bottom: 1rem;">
+                    <p style="font-weight: bold; margin-bottom: 0.8rem;">4. Где установлен папа Лео?</p>
+                    <input type="text" id="h4" placeholder="Ваш ответ" style="width: 100%; padding: 0.6rem; border: 2px solid #BB794C; border-radius: 8px; font-size: 1rem;">
+                </div>
+                
+                <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 10px; margin-bottom: 1rem;">
+                    <p style="font-weight: bold; margin-bottom: 0.8rem;">5. В каком году был установлен папа Лео?</p>
+                    <input type="text" id="h5" placeholder="Ваш ответ" style="width: 100%; padding: 0.6rem; border: 2px solid #BB794C; border-radius: 8px; font-size: 1rem;">
+                </div>
+                
+                <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 10px; margin-bottom: 1rem;">
+                    <p style="font-weight: bold; margin-bottom: 0.8rem;">6. Что носит папа Лео на голове?</p>
+                    <input type="text" id="h6" placeholder="Ваш ответ" style="width: 100%; padding: 0.6rem; border: 2px solid #BB794C; border-radius: 8px; font-size: 1rem;">
+                </div>
+                
+                <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 10px; margin-bottom: 1rem;">
+                    <p style="font-weight: bold; margin-bottom: 0.8rem;">7. Где установлен Витя?</p>
+                    <input type="text" id="h7" placeholder="Ваш ответ" style="width: 100%; padding: 0.6rem; border: 2px solid #BB794C; border-radius: 8px; font-size: 1rem;">
+                </div>
+                
+                <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 10px; margin-bottom: 1rem;">
+                    <p style="font-weight: bold; margin-bottom: 0.8rem;">8. По какой реке мечтает плавать Витя?</p>
+                    <input type="text" id="h8" placeholder="Ваш ответ" style="width: 100%; padding: 0.6rem; border: 2px solid #BB794C; border-radius: 8px; font-size: 1rem;">
+                </div>
+                
+                <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 10px; margin-bottom: 1rem;">
+                    <p style="font-weight: bold; margin-bottom: 0.8rem;">9. Что носит Витя на голове?</p>
+                    <input type="text" id="h9" placeholder="Ваш ответ" style="width: 100%; padding: 0.6rem; border: 2px solid #BB794C; border-radius: 8px; font-size: 1rem;">
+                </div>
+                
+                <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 10px; margin-bottom: 1.5rem;">
+                    <p style="font-weight: bold; margin-bottom: 0.8rem;">10. Кто выбирал имена для хомлинов?</p>
+                    <input type="text" id="h10" placeholder="Ваш ответ" style="width: 100%; padding: 0.6rem; border: 2px solid #BB794C; border-radius: 8px; font-size: 1rem;">
+                </div>
+                
+                <button onclick="checkHomlinsQuiz()" style="width: 100%; padding: 1rem; background: #BB794C; color: white; border: none; border-radius: 10px; font-size: 1.1rem; cursor: pointer; font-weight: bold; margin-bottom: 1rem;">Проверить ответы</button>
+                
+                <div id="homlinsResult" style="display: none; padding: 1.5rem; border-radius: 10px; margin-bottom: 2rem; text-align: center;"></div>
+                
+                <hr style="border: none; border-top: 2px solid #DEB308; margin: 3rem 0;">
+                
+                <h3 style="color: #BB794C; margin-bottom: 1.5rem; text-align: center;">📝 Вопросы о типах речи</h3>
+                
+                <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 10px; margin-bottom: 1rem;">
+                    <p style="font-weight: bold; margin-bottom: 0.8rem;">1. Какой тип речи отвечает на вопрос "Почему?" и содержит доказательства?</p>
+                    <input type="text" id="q1" placeholder="Ваш ответ" style="width: 100%; padding: 0.6rem; border: 2px solid #BB794C; border-radius: 8px; font-size: 1rem;">
+                </div>
+                
+                <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 10px; margin-bottom: 1rem;">
+                    <p style="font-weight: bold; margin-bottom: 0.8rem;">2. Какой тип речи рисует словами картину и отвечает на вопрос "Какой?"</p>
+                    <input type="text" id="q2" placeholder="Ваш ответ" style="width: 100%; padding: 0.6rem; border: 2px solid #BB794C; border-radius: 8px; font-size: 1rem;">
+                </div>
+                
+                <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 10px; margin-bottom: 1rem;">
+                    <p style="font-weight: bold; margin-bottom: 0.8rem;">3. Какой тип речи рассказывает о событиях в определённой последовательности?</p>
+                    <input type="text" id="q3" placeholder="Ваш ответ" style="width: 100%; padding: 0.6rem; border: 2px solid #BB794C; border-radius: 8px; font-size: 1rem;">
+                </div>
+                
+                <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 10px; margin-bottom: 1rem;">
+                    <p style="font-weight: bold; margin-bottom: 0.8rem;">4. В каком типе речи часто используются слова: сначала, потом, затем, наконец?</p>
+                    <input type="text" id="q4" placeholder="Ваш ответ" style="width: 100%; padding: 0.6rem; border: 2px solid #BB794C; border-radius: 8px; font-size: 1rem;">
+                </div>
+                
+                <div style="background: #f8f9fa; padding: 1.5rem; border-radius: 10px; margin-bottom: 1.5rem;">
+                    <p style="font-weight: bold; margin-bottom: 0.8rem;">5. В каком типе речи используются слова: во-первых, следовательно, таким образом, поэтому?</p>
+                    <input type="text" id="q5" placeholder="Ваш ответ" style="width: 100%; padding: 0.6rem; border: 2px solid #BB794C; border-radius: 8px; font-size: 1rem;">
+                </div>
+                
+                <button onclick="checkSpeechQuiz()" style="width: 100%; padding: 1rem; background: #BB794C; color: white; border: none; border-radius: 10px; font-size: 1.1rem; cursor: pointer; font-weight: bold; margin-bottom: 1rem;">Проверить ответы</button>
+                
+                <div id="speechResult" style="display: none; padding: 1.5rem; border-radius: 10px; margin-bottom: 2rem; text-align: center;"></div>
+                
+                <hr style="border: none; border-top: 2px solid #DEB308; margin: 3rem 0;">
+                
+                <h3 style="color: #BB794C; margin-bottom: 1.5rem; text-align: center;">✍️ Напишите свой текст</h3>
+            
+            <div style="text-align: left; max-width: 800px; margin: 0 auto;">
                 <label style="display: block; margin-bottom: 0.5rem; font-weight: bold;">Ваше имя:</label>
                 <input type="text" id="authorName" placeholder="Введите ваше имя" style="width: 100%; padding: 0.8rem; border: 2px solid #BB794C; border-radius: 10px; margin-bottom: 1rem; font-size: 1rem;">
                 
@@ -478,6 +572,96 @@ C:\Users\makar\OneDrive\Рабочий стол\Homlens-main\education.html<!DOC
         function toggleMobileMenu() {
             document.querySelector('.mobile-menu-btn').classList.toggle('active');
             document.querySelector('.top-nav').classList.toggle('active');
+        }
+        
+        function checkHomlinsQuiz() {
+            const answers = {
+                h1: document.getElementById('h1').value.toLowerCase().trim(),
+                h2: document.getElementById('h2').value.toLowerCase().trim(),
+                h3: document.getElementById('h3').value.toLowerCase().trim(),
+                h4: document.getElementById('h4').value.toLowerCase().trim(),
+                h5: document.getElementById('h5').value.toLowerCase().trim(),
+                h6: document.getElementById('h6').value.toLowerCase().trim(),
+                h7: document.getElementById('h7').value.toLowerCase().trim(),
+                h8: document.getElementById('h8').value.toLowerCase().trim(),
+                h9: document.getElementById('h9').value.toLowerCase().trim(),
+                h10: document.getElementById('h10').value.toLowerCase().trim()
+            };
+            
+            const correct = {
+                h1: '2018',
+                h2: 'медовый',
+                h3: 'чай',
+                h4: 'музей',
+                h5: '2021',
+                h6: 'шляпа',
+                h7: 'набережная',
+                h8: 'преголя',
+                h9: 'фуражка',
+                h10: 'жители'
+            };
+            
+            let score = 0;
+            for (let key in answers) {
+                if (answers[key].includes(correct[key])) score++;
+            }
+            
+            const result = document.getElementById('homlinsResult');
+            result.style.display = 'block';
+            
+            if (score >= 8) {
+                result.style.background = '#28a745';
+                result.style.color = 'white';
+                result.innerHTML = `<h3>🎉 Отлично!</h3><p style="font-size: 1.2rem;">Вы правильно ответили на ${score} из 10 вопросов! Вы отлично знаете историю хомлинов!</p>`;
+            } else if (score >= 5) {
+                result.style.background = '#ffc107';
+                result.style.color = '#242423';
+                result.innerHTML = `<h3>👍 Хорошо!</h3><p style="font-size: 1.2rem;">Вы правильно ответили на ${score} из 10 вопросов. Перечитайте тексты о хомлинах!</p>`;
+            } else {
+                result.style.background = '#dc3545';
+                result.style.color = 'white';
+                result.innerHTML = `<h3>📚 Нужно повторить</h3><p style="font-size: 1.2rem;">Вы правильно ответили на ${score} из 10 вопросов. Внимательно прочитайте истории о хомлинах!</p>`;
+            }
+        }
+        
+        function checkSpeechQuiz() {
+            const answers = {
+                q1: document.getElementById('q1').value.toLowerCase().trim(),
+                q2: document.getElementById('q2').value.toLowerCase().trim(),
+                q3: document.getElementById('q3').value.toLowerCase().trim(),
+                q4: document.getElementById('q4').value.toLowerCase().trim(),
+                q5: document.getElementById('q5').value.toLowerCase().trim()
+            };
+            
+            const correct = {
+                q1: 'рассуждение',
+                q2: 'описание',
+                q3: 'повествование',
+                q4: 'повествование',
+                q5: 'рассуждение'
+            };
+            
+            let score = 0;
+            for (let key in answers) {
+                if (answers[key] === correct[key]) score++;
+            }
+            
+            const result = document.getElementById('speechResult');
+            result.style.display = 'block';
+            
+            if (score === 5) {
+                result.style.background = '#28a745';
+                result.style.color = 'white';
+                result.innerHTML = `<h3>🎉 Отлично!</h3><p style="font-size: 1.2rem;">Вы правильно ответили на все ${score} из 5 вопросов! Вы отлично знаете типы речи!</p>`;
+            } else if (score >= 3) {
+                result.style.background = '#ffc107';
+                result.style.color = '#242423';
+                result.innerHTML = `<h3>👍 Хорошо!</h3><p style="font-size: 1.2rem;">Вы правильно ответили на ${score} из 5 вопросов. Попробуйте ещё раз!</p>`;
+            } else {
+                result.style.background = '#dc3545';
+                result.style.color = 'white';
+                result.innerHTML = `<h3>📚 Нужно повторить</h3><p style="font-size: 1.2rem;">Вы правильно ответили на ${score} из 5 вопросов. Перечитайте материалы о типах речи!</p>`;
+            }
         }
     </script>
 
